@@ -41,22 +41,37 @@ const TokenExpiry = () => {
     return 'bg-green-100 text-green-800 border-green-200';
   };
 
-  const getTimeRemaining = (token_expiry) => {
-    const today = new Date();
-    const expiry = new Date(token_expiry);
-    const diffTime = expiry.getTime() - today.getTime();
-    
+  const getTimeRemaining = (token_expiry: any) => {
+    if (!token_expiry) {
+      return { total: 0, days: 0, hours: 0, minutes: 0 };
+    }
+
+    const now = Date.now();
+    const expiryTime = Date.parse(token_expiry);
+
+    // If invalid date → treat as expired
+    if (isNaN(expiryTime)) {
+      return { total: 0, days: 0, hours: 0, minutes: 0 };
+    }
+
+    const diffTime = Math.max(0, expiryTime - now);
+
     const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-    const hours = Math.floor((diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    const minutes = Math.floor((diffTime % (1000 * 60 * 60)) / (1000 * 60));
-    
+    const hours = Math.floor(
+      (diffTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
+    const minutes = Math.floor(
+      (diffTime % (1000 * 60 * 60)) / (1000 * 60)
+    );
+
     return {
       total: diffTime,
-      days: days,
-      hours: hours,
-      minutes: minutes
+      days,
+      hours,
+      minutes,
     };
   };
+
 
   const getStatusText = (token_expiry) => {
     const timeRemaining = getTimeRemaining(token_expiry);
@@ -67,14 +82,14 @@ const TokenExpiry = () => {
 
   const formatTimeRemaining = (token_expiry) => {
     const time = getTimeRemaining(token_expiry);
-    
+
     if (time.total < 0) {
       const absDays = Math.abs(time.days);
       const absHours = Math.abs(time.hours);
       const absMinutes = Math.abs(time.minutes);
       return `Expired ${absDays}d ${absHours}h ${absMinutes}m ago`;
     }
-    
+
     if (time.days > 0) {
       return `${time.days}d ${time.hours}h ${time.minutes}m remaining`;
     } else if (time.hours > 0) {
