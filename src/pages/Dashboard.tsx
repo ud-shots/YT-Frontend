@@ -88,8 +88,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     loadData();
-    const interval = setInterval(loadData, 5000); // Poll for status updates
-    return () => clearInterval(interval);
+    // const interval = setInterval(loadData, 5000); // Poll for status updates
+    // return () => clearInterval(interval);
   }, []);
 
   const handleDelete = async (id: string) => {
