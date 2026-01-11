@@ -1,0 +1,5 @@
+{
+  "name": "TubeFlow AI",
+  "description": "An AI-powered YouTube upload automation dashboard. Simulates the full workflow of video ingestion, AI SEO generation, scheduling, and lifecycle management.",
+  "requestFramePermissions": []
+}
