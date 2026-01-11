@@ -8,6 +8,7 @@ const TokenExpiry = () => {
   const { alert } = useAlert();
   const { success } = useSuccess();
   const { startLoading, stopLoading } = useLoader();
+  const IST_OFFSET_MS = 5.5 * 60 * 60 * 1000; // 5 hours 30 minutes
 
   const [channels, setChannels] = useState([]);
 
@@ -41,20 +42,42 @@ const TokenExpiry = () => {
     return 'bg-green-100 text-green-800 border-green-200';
   };
 
+  const parseExpiry = (expiry: any): number => {
+    if (!expiry) return 0;
+
+    let expiryUtcMs: number;
+
+    if (expiry instanceof Date) {
+      expiryUtcMs = expiry.getTime();
+    } else {
+      const parsed = Date.parse(expiry);
+      if (isNaN(parsed)) {
+        console.warn("⚠️ Invalid token_expiry format:", expiry);
+        return 0; // force refresh
+      }
+      expiryUtcMs = parsed;
+    }
+
+    return expiryUtcMs;
+  };
+
   const getTimeRemaining = (token_expiry: any) => {
     if (!token_expiry) {
       return { total: 0, days: 0, hours: 0, minutes: 0 };
     }
 
-    const now = Date.now();
-    const expiryTime = Date.parse(token_expiry);
-
-    // If invalid date → treat as expired
-    if (isNaN(expiryTime)) {
+    const expiryUtcMs = parseExpiry(token_expiry);
+    if (!expiryUtcMs) {
       return { total: 0, days: 0, hours: 0, minutes: 0 };
     }
 
-    const diffTime = Math.max(0, expiryTime - now);
+    // Convert NOW to IST
+    const nowIstMs = Date.now() + IST_OFFSET_MS;
+
+    // Convert EXPIRY to IST
+    const expiryIstMs = expiryUtcMs + IST_OFFSET_MS;
+
+    const diffTime = Math.max(0, expiryIstMs - nowIstMs);
 
     const days = Math.floor(diffTime / (1000 * 60 * 60 * 24));
     const hours = Math.floor(
