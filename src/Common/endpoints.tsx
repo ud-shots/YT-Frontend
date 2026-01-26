@@ -5,8 +5,8 @@ interface URLConfig {
 
 const URL: URLConfig = {
     // API 
-    // baseUrl : 'https://yt-backend-rvma.onrender.com/'
-    baseUrl: 'http://localhost:4061/'
+    baseUrl : 'https://yt-backend-rvma.onrender.com/'
+    // baseUrl: 'http://localhost:4061/'
 };
 
 const ENDPOINTS: any = {
