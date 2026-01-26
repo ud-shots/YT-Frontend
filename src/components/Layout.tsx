@@ -169,6 +169,7 @@ const Layout = () => {
           </div>
           <SidebarItem to="/" icon={LayoutDashboard} label="Dashboard" />
           <SidebarItem to="/token-expiry" icon={LayoutDashboard} label="Token Expiry" />
+          <SidebarItem to="/scheduled-videos" icon={LayoutDashboard} label="Scheduled Videos" />
           <SidebarItem to="/upload" icon={UploadCloud} label="Upload Video" />
 
           <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 px-4 mt-8">

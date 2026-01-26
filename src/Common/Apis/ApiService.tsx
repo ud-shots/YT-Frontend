@@ -247,3 +247,36 @@ export const getAllYoutubeCredencial = async (): Promise<ApiResponse> => {
         return errorResponse(error)
     }
 };
+
+export const getScheduledVideos = async (queryParams: string): Promise<ApiResponse> => {
+    try {
+
+        const response = await apiClient.get(`${ENDPOINTS.getScheduledVideos}${queryParams}`);
+        let res = await validRespones(response)
+
+        if (!res.status) {
+            return { status: false, message: res.message }
+        }
+
+        return { status: true, message: res.message, data: res.data }
+
+    } catch (error: any) {
+        return errorResponse(error)
+    }
+};
+
+export const moveToScheduledMedia = async (id: string): Promise<ApiResponse> => {
+    try {
+        const response = await apiClient.get(`${ENDPOINTS.moveToScheduledMedia}${id}`);
+        let res = await validRespones(response)
+
+        if (!res.status) {
+            return { status: false, message: res.message }
+        }
+
+        return { status: true, message: res.message, data: res.data }
+
+    } catch (error: any) {
+        return errorResponse(error)
+    }
+};

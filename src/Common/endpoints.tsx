@@ -5,8 +5,8 @@ interface URLConfig {
 
 const URL: URLConfig = {
     // API 
-    baseUrl : 'https://yt-backend-rvma.onrender.com/'
-    // baseUrl: 'http://localhost:4061/'
+    // baseUrl : 'https://yt-backend-rvma.onrender.com/'
+    baseUrl: 'http://localhost:4061/'
 };
 
 const ENDPOINTS: any = {
@@ -23,7 +23,8 @@ const ENDPOINTS: any = {
     fbAccessToken: URL.baseUrl + `api/facebook/get-access-token`,
     fbFinalConnect: URL.baseUrl + `api/facebook/final-connect`,
     getAllYoutubeCredencial: URL.baseUrl + `api/youtube/get-all-credential`,
-    
+    getScheduledVideos: URL.baseUrl + `api/dashboard/scheduled-videos`,
+    moveToScheduledMedia: URL.baseUrl + `api/dashboard/movet-to-scheduled-media/`
 };
 
 export default ENDPOINTS;

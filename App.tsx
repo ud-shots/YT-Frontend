@@ -7,6 +7,7 @@ import VideoDetails from './src/pages/VideoDetails';
 import Login from './src/pages/Login';
 import SecureRoutes from './src/SecureRoutes/SecureRoutes';
 import TokenExpiry from './src/pages/TokenExpiry';
+import ScheduledVideos from './src/pages/ScheduledVideos';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/' element={<Layout />} >
           <Route index element={<Dashboard />} />
           <Route path='/token-expiry' element={<TokenExpiry />} />
+          <Route path='/scheduled-videos' element={<ScheduledVideos />} />
           <Route path="upload" element={<UploadPage />} />
           <Route path="video/:id" element={<VideoDetails />} />
         </Route>
